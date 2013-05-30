@@ -19,7 +19,7 @@ class WeChatTypeParse{
         
         switch($type){
         	case 'text':
-        		$factory = new WeChatMessageTextHandlerFactory();
+        		$factory = WeChatMessageTextHandlerFactory::getInstance();
 	        	$factory->setUserMessage($postObj);//用以下一步判断返回具体什么处理单元
 	        	$handler = $factory->createMessageHandler();
 

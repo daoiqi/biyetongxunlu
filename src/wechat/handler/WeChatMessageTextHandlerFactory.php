@@ -2,7 +2,13 @@
 
 include_once(  dirname(__FILE__)."/WeChatMessageHandlerFactory.php");
 include_once(  dirname(__FILE__)."/impl/Help.php");
+include_once(  dirname(__FILE__)."/impl/ListClass.php");
 
+/**
+ * 对用户来的文本消息生成具体的响应对象的工厂。
+ * 此类是一个单例模式，需要调用getInstance()获得实例
+ * @author d
+ */
 class WeChatMessageTextHandlerFactory 
 			extends  WeChatMessageHandlerFactory{
 				
@@ -13,9 +19,11 @@ class WeChatMessageTextHandlerFactory
 	 * @see src/wechat/handler/WechatMessageHandlerFactory::createMessageHandler()
 	 */
 	public function	createMessageHandler(){
-		switch ($this->userMessage->Content) {
-			case "查询班级":
-				$this->handler = new Help();
+		$cmd = $this->userMessage->Content;
+
+		switch ($cmd) {
+			case "班级":
+				$this->handler = new ListClass();
 				break;
 	
 			default://不识别的话，返回帮助信息
@@ -28,6 +36,26 @@ class WeChatMessageTextHandlerFactory
 		
 		
 	}
+
+	/**
+	 * WeChatMessageTextHandlerFactory的单例模式
+	 */
+	private static $singleton = null;
+
+	/**
+	 * 获得WeChatMessageTextHandlerFactory的单例模式。
+	 */
+	public static function getInstance(){
+		if( !(self::$singleton instanceof self) ) { 
+        	self::$singleton = new self(); 
+		} 
+		return self::$singleton; 
+	}
+
+	private function __construct(){}
+
+
+
 }
 
 ?>
