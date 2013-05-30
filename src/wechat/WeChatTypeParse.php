@@ -31,6 +31,25 @@ class WeChatTypeParse{
 
        
 	}
+
+
+
+	/**
+	 * WeChatTypeParse的单例模式
+	 */
+	private static $singleton = null;
+
+	/**
+	 * 获得WeChatTypeParse的单例模式。
+	 */
+	public static function getInstance(){
+		if( !(self::$singleton instanceof self) ) { 
+        	self::$singleton = new self(); 
+		} 
+		return self::$singleton; 
+	}
+
+	private function __construct(){}
 }
 
 

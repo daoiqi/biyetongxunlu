@@ -28,7 +28,7 @@ class WeChatCallbackAPI{
 	private $weChatMessageHandler;
 
 	public function __construct(){
-		$this->weChatTypeParse = new WeChatTypeParse();
+		
 	}
 
 	public function responseMessage(){
@@ -41,7 +41,7 @@ class WeChatCallbackAPI{
 	public function run($message){
 		if (!empty($message)){
 			//获得正确的类型处理器。有点类似获得一个工厂
-			$this->weChatMessageHandler = $this->weChatTypeParse->parse($message);
+			$this->weChatMessageHandler = WeChatTypeParse::getInstance()->parse($message);
 			
 			//获得正确的消息响应对象。产生正确的产品。并处理消息
 			$this->weChatMessageHandler->doHandleMessage();
