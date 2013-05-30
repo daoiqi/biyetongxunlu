@@ -39,7 +39,7 @@ class WeChatMessageTextHandlerFactory
 	protected function getCommand($content){
 		
 		//获得空格前的命令
-		$cmd = (strpos($content,' ') < 0) ? $content :
+		$cmd = (strpos($content,' ') == FALSE) ? $content :
 			 	substr( $content , 0, strpos($content,' '));
 
 
