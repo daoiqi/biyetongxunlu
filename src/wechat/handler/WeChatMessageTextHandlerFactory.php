@@ -19,22 +19,42 @@ class WeChatMessageTextHandlerFactory
 	 * @see src/wechat/handler/WechatMessageHandlerFactory::createMessageHandler()
 	 */
 	public function	createMessageHandler(){
-		$cmd = $this->userMessage->Content;
+		$content = trim($this->userMessage->Content);//去除多余的空格
 
-		switch ($cmd) {
-			case "班级":
-				$this->handler = new ListClass();
-				break;
-	
-			default://不识别的话，返回帮助信息
-				$this->handler = new Help();
-		}
+		$handlerName = self::$HANDLERS[ $this->getCommand($content) ];
+
+		$class=new ReflectionClass($handlerName);    //建立 命令 的反射类
+		$this->handler = $class->newInstance(); //赋值
 		
 		//为handle设置用户发送的消息。用户逻辑的处理
 		$this->handler->setUserMessage($this->userMessage);
 		return $this->handler;
 		
 		
+	}
+
+	/**
+	 * 获得用户的命令，具体的参数由实际的业务逻辑单元处理
+	 */ 
+	protected function getCommand($content){
+		
+		//获得空格前的命令
+		$cmd = (strpos($content,' ') < 0) ? $content :
+			 	substr( $content , 0, strpos($content,' '));
+
+
+		switch ($cmd) {
+			case '班级':
+			case 'bj'  :
+				return 'class';
+
+			case '帮助':
+			case 'help':
+				return 'help';
+			
+			default:
+				return 'help';
+		}
 	}
 
 	/**
@@ -54,6 +74,14 @@ class WeChatMessageTextHandlerFactory
 
 	private function __construct(){}
 
+	
+	/**
+	 * 相关的业务逻辑单元。采用反射动态生成具体的实例
+	 */
+	private static $HANDLERS = array(
+			'help' => "Help",
+			'class' => "ListClass"
+		);
 
 
 }
