@@ -5,8 +5,9 @@ include_once( dirname(__FILE__). "/../response/WeChatResponseMessageFactory.php"
 include_once(  dirname(__FILE__)."/WeChatMessageHandler.php");
 
 /**
-* 文本类型的处理类。。需要处理更多的业务逻辑。需要具体的类去实现
-*/
+ * 文本类型的处理类。。需要处理更多的业务逻辑。需要具体的类去实现
+ * 
+ */
 abstract class WeChatMessageTextHandler extends WeChatMessageHandler{
 	
 	public function __construct(){
@@ -62,6 +63,15 @@ abstract class WeChatMessageTextHandler extends WeChatMessageHandler{
 		$this->responseMessage->setResponseMessage($this->content);
 		$this->responseMessage->setFuncFlag(0);
 		
+	}
+
+
+
+	/**
+	 * 获得用户发送的消息的内容。即用户发送的消息
+	 */
+	protected function getUserMessageContent(){
+		return $this->userMessage->Content;
 	}
 	
 	

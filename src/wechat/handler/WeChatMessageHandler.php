@@ -58,6 +58,41 @@ abstract class WeChatMessageHandler{
 	public function getResponseMessage(){
 		return $this->responseMessage->responseMessage();
 	}
+
+	/**
+	 * 获得用户发送的消息的接受者。即该公众账号
+	 */
+	protected function getUserMessageToUserName(){
+		return $this->userMessage->ToUserName;
+	}
+
+	/**
+	 * 获得用户发送的消息的发送者账号。即用户的账号
+	 */
+	protected function getUserMessageFromUserName(){
+		return $this->userMessage->FromUserName;
+	}
+
+	/**
+	 * 获得用户发送的消息的发送时间。即消息的发送时间
+	 */
+	protected function getUserMessageCreateTime(){
+		return $this->userMessage->CreateTime;
+	}
+
+	/**
+	 * 获得用户发送的消息的类型。有text、image、location
+	 */
+	protected function getUserMessageMsgType(){
+		return $this->userMessage->MsgType;
+	}
+
+	/**
+	 * 获得用户发送的消息的消息id。消息id，64位整型
+	 */
+	protected function getUserMessageMsgId(){
+		return $this->userMessage->FromUserName;
+	}
 }
 
 

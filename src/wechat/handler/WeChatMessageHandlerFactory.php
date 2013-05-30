@@ -27,6 +27,7 @@ abstract class WeChatMessageHandlerFactory{
 	/**
 	 * 
 	 * 创造业务逻辑处理单元的实例
+	 * @return WeChatMessageHandler具体的对象
 	 */
 	public abstract function createMessageHandler();
 	
