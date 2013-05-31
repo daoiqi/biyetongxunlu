@@ -3,3 +3,4 @@
 .buildpath
 .project
 /src/test*.*
+/src/ftpsync.settings
